@@ -1,5 +1,8 @@
-<h1>Welcome to the zone</h1>
+<h1>Welcome {{user.name}}</h1>
 
-<ul>
-  <li>Name: {{user.name}}</li>
-</ul>
+{{#each zones }}
+<!-- Show list of Zones -->
+{{else}}
+  <h4>It looks like you haven't created any zones yet</h4>
+  <a href="/zone/create" class="btn btn-primary" role="button">Create Zone</a>
+{{/each}}
