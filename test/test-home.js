@@ -15,4 +15,11 @@ test('Home page', t => {
     .end(t.end);
 });
 
+// test('Login with spotify', t => {
+//   request(app)
+//     .get('/login/spotify')
+//     .expect(200)
+//     .end(t.end);
+// });
+
 test.onFinish(() => process.exit(0));

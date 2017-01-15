@@ -4,7 +4,7 @@
  */
 
 var mongoose = require('mongoose');
-var userPlugin = require('mongoose-user');
+// var userPlugin = require('mongoose-user');
 var Schema = mongoose.Schema;
 
 /**
@@ -12,17 +12,16 @@ var Schema = mongoose.Schema;
  */
 
 var UserSchema = new Schema({
-  name: { type: String, default: '' },
-  email: { type: String, default: '' },
-  hashed_password: { type: String, default: '' },
-  salt: { type: String, default: '' }
+  name: { type: String, required: true },
+  spotifyId: { type: String, required: true }
+  // salt: { type: String, default: '' }
 });
 
 /**
  * User plugin
  */
 
-UserSchema.plugin(userPlugin, {});
+// UserSchema.plugin(userPlugin, {});
 
 /**
  * Add your
@@ -35,17 +34,41 @@ UserSchema.plugin(userPlugin, {});
  * Methods
  */
 
-UserSchema.method({
 
-});
+// UserSchema.method({
+
+// });
 
 /**
  * Statics
  */
 
-UserSchema.static({
+// UserSchema.static({
 
-});
+// });
+
+UserSchema.statics.findOrCreate = function(spotifyData) {
+  var self = this;
+  return new Promise(function(resolve, reject){
+    self
+      .findOne({spotifyId: spotifyData.spotifyId}).exec()
+      .then(function(user){
+        if (user) {
+          console.log('user found');
+          return resolve(user); 
+        } else {
+          self
+            .create(spotifyData)
+            .then(function(user){
+              console.log('created!');
+              return resolve(user);
+            })
+            .catch(reject);
+        }
+      })
+      .catch(reject);
+  });
+};
 
 /**
  * Register

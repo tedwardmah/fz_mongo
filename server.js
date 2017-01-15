@@ -1,11 +1,5 @@
 'use strict';
 
-/*
- * nodejs-express-mongoose
- * Copyright(c) 2015 Madhusudhan Srinivasa <madhums8@gmail.com>
- * MIT Licensed
- */
-
 /**
  * Module dependencies
  */
@@ -16,6 +10,7 @@ const fs = require('fs');
 const join = require('path').join;
 const express = require('express');
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 const passport = require('passport');
 const config = require('./config');
 

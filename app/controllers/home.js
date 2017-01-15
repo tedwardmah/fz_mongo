@@ -4,7 +4,9 @@
  */
 
 exports.index = function (req, res) {
+  console.log('user', req.user);
   res.render('home/index', {
-    title: 'Node Express Mongoose Boilerplate'
+    title: 'FZ Radio',
+    user: req.user
   });
 };

@@ -5,6 +5,7 @@
  */
 
 const home = require('../app/controllers/home');
+const auth = require('../app/controllers/authController');
 
 /**
  * Expose
@@ -13,6 +14,18 @@ const home = require('../app/controllers/home');
 module.exports = function (app, passport) {
 
   app.get('/', home.index);
+
+  app.get('/login/spotify', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}), function(req, res){});
+
+  app.get('/callback',
+    passport.authenticate('spotify', { failureRedirect: '/login/spotify' }),
+    function(req, res) {
+      console.log('authenticated!');
+      res.redirect('/');
+    }
+  );
+
+  app.get('/logout', auth.logout);
 
   /**
    * Error handling

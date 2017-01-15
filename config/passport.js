@@ -6,6 +6,7 @@
 
 const mongoose = require('mongoose');
 const local = require('./passport/local');
+const spotify = require('./passport/spotify');
 
 const User = mongoose.model('User');
 
@@ -16,9 +17,10 @@ const User = mongoose.model('User');
 module.exports = function (passport) {
 
   // serialize and deserialize sessions
-  passport.serializeUser((user, done) => done(null, user.id));
-  passport.deserializeUser((id, done) => User.findOne({ _id: id }, done));
+  passport.serializeUser((user, done) => done(null, user.spotifyId));
+  passport.deserializeUser((id, done) => User.findOne({ spotifyId: id }, done));
 
   // use these strategies
-  passport.use(local);
+  // passport.use(local);
+  passport.use(spotify);
 };
