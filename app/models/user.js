@@ -13,9 +13,10 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   name: { type: String, required: true },
-  spotifyId: { type: String, required: true },
+  spotifyId: { type: String, required: true, unique: true },
   accessToken: {type: String, required: true },
-  refreshToken: {type: String, required: true }
+  refreshToken: {type: String, required: true },
+  primaryEmail: {type: String, required: true }
 });
 
 /**
@@ -48,29 +49,35 @@ var UserSchema = new Schema({
 
 // });
 
-UserSchema.statics.findOrCreate = function(spotifyData) {
+UserSchema.statics.updateOrCreateOnSpotifyAuthorization = function(spotifyData) {
   var self = this;
   var accessToken = spotifyData.accessToken;
   var refreshToken = spotifyData.refreshToken;
   var spotifyProfile = spotifyData.profile;
   return new Promise(function(resolve, reject){
-    self
-      .findOne({spotifyId: spotifyData.spotifyId}).exec()
+    return self
+      .findOne({spotifyId: spotifyProfile.id}).exec()
       .then(function(user){
         if (user) {
-          console.log('user found');
-          return resolve(user); 
+          user.accessToken = accessToken;
+          user.refreshToken = refreshToken;
+          return user
+            .save()
+            .then(function(user){
+              resolve(user);
+            })
+            .catch(reject);
         } else {
-          self
+          return self
             .create({
               accessToken: accessToken,
               refreshToken: refreshToken,
               name: spotifyProfile.displayName,
-              spotifyId: spotifyProfile.id 
+              spotifyId: spotifyProfile.id,
+              primaryEmail: spotifyProfile._json.email
             })
             .then(function(user){
-              console.log('created!');
-              return resolve(user);
+              resolve(user);
             })
             .catch(reject);
         }

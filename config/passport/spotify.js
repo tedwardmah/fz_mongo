@@ -24,14 +24,12 @@ module.exports = new SpotifyStrategy({
     callbackURL: 'http://localhost:3000/callback'
   },
   function(accessToken, refreshToken, profile, done) {
-    // console.log(profile);
-    User.findOrCreate({ 
+    User.updateOrCreateOnSpotifyAuthorization({
       accessToken: accessToken,
       refreshToken: refreshToken,
       profile: profile
     })
     .then(function (user) {
-      console.log(user);
       return done(null, user);
     })
     .catch(done);
