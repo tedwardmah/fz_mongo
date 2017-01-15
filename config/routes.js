@@ -14,6 +14,7 @@ const auth = require('../app/controllers/authController');
 module.exports = function (app, passport) {
 
   app.get('/', home.index);
+  app.get('/dashboard', home.dashboard);
 
   app.get('/login/spotify', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}), function(req, res){});
 
@@ -21,7 +22,7 @@ module.exports = function (app, passport) {
     passport.authenticate('spotify', { failureRedirect: '/login/spotify' }),
     function(req, res) {
       console.log('authenticated!');
-      res.redirect('/');
+      res.redirect('/dashboard');
     }
   );
 

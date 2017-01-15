@@ -21,6 +21,5 @@ module.exports = function (passport) {
   passport.deserializeUser((id, done) => User.findOne({ spotifyId: id }, done));
 
   // use these strategies
-  // passport.use(local);
   passport.use(spotify);
 };

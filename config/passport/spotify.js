@@ -26,8 +26,9 @@ module.exports = new SpotifyStrategy({
   function(accessToken, refreshToken, profile, done) {
     // console.log(profile);
     User.findOrCreate({ 
-      name: profile.displayName,
-      spotifyId: profile.id 
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      profile: profile
     })
     .then(function (user) {
       console.log(user);

@@ -4,9 +4,17 @@
  */
 
 exports.index = function (req, res) {
-  console.log('user', req.user);
-  res.render('home/index', {
-    title: 'FZ Radio',
+  if (req.user) {
+    res.redirect('/dashboard');
+  } else {
+    res.render('home', {
+      user: req.user
+    });
+  }
+};
+
+exports.dashboard = function (req, res) {
+  res.render('dashboard', {
     user: req.user
   });
 };
