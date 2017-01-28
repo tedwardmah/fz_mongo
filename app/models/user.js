@@ -12,11 +12,29 @@ var Schema = mongoose.Schema;
  */
 
 var UserSchema = new Schema({
-  name: { type: String, required: true },
-  spotifyId: { type: String, required: true, unique: true },
-  accessToken: {type: String, required: true },
-  refreshToken: {type: String, required: true },
-  primaryEmail: {type: String, required: true }
+  name: { 
+    type: String, 
+    required: true 
+  },
+  spotifyId: { 
+    type: String, 
+    required: true, 
+    index: { 
+      unique: true 
+    }
+  },
+  accessToken: {
+    type: String, 
+    required: true 
+  },
+  refreshToken: {
+    type: String, 
+    required: true 
+  },
+  primaryEmail: {
+    type: String, 
+    required: true 
+  }
 });
 
 /**
