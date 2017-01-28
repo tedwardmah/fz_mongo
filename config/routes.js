@@ -16,7 +16,7 @@ module.exports = function (app, passport) {
   app.get('/', home.index);
   app.get('/dashboard', home.dashboard);
 
-  app.get('/login/spotify', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}), function(req, res){});
+  app.get('/login/spotify', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'playlist-read-collaborative', 'playlist-modify-public', 'playlist-modify-private'], showDialog: true}), function(req, res){});
 
   app.get('/callback',
     passport.authenticate('spotify', { failureRedirect: '/login/spotify' }),
