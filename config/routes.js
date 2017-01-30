@@ -30,7 +30,7 @@ module.exports = function (app, passport) {
   app.get('/logout', auth.logout);
 
   app.get('/zone/create', auth.ensureAuthenticated, zone.renderCreate);
-  // app.post('/zone/create', auth.ensureAuthenticated, zone.create);
+  app.post('/zone', auth.ensureAuthenticated, zone.create);
   // app.get('/zone/remove', auth.ensureAuthenticated, zone.renderRemove);
   // app.post('/zone/remove', auth.ensureAuthenticated, zone.remove);
 

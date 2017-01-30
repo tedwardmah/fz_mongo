@@ -1,5 +1,10 @@
 <h2>Let's create a zone</h2>
 
-<!-- <form action="">
-  
-</form> -->
+<form action="/zone" method="POST" >
+  <div class="form-group">
+    <input type='hidden' name='_csrf' value={{csrf_token}} />
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

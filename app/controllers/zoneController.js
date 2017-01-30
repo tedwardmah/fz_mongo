@@ -8,3 +8,8 @@ exports.renderCreate = function (req, res) {
     user: req.user
   });
 };
+
+exports.create = function (req, res) {
+  console.log(req.body);
+  res.redirect('/');
+};
